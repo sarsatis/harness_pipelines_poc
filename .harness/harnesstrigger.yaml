@@ -31,7 +31,22 @@ pipeline:
                   name: trigger
                   identifier: trigger
                   spec:
-                    shell: Sh
+                    shell: Python
                     command: |-
-                      echo hello
-                      exit 1
+                      import subprocess
+                      import re
+                      import sys
+
+                      # Get the latest commit message
+                      commit_message = subprocess.check_output(['git', 'log', '-1', '--pretty=%B']).strip().decode('utf-8')
+
+                      # Define the regex pattern for the commit message
+                      pattern = r'^(feat|fix|docs|release): [A-Z]+-[0-9]+ .+'
+
+                      # Check if the commit message matches the pattern
+                      if re.match(pattern, commit_message):
+                          print("Commit message is valid")
+                          sys.exit(0)
+                      else:
+                          print("Invalid commit message. Ensure the message follows the pattern: <type>: <JIRA ID> <message>")
+                          sys.exit(1)
