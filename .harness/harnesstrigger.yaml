@@ -1,0 +1,35 @@
+pipeline:
+  name: harness-trigger
+  identifier: harnesstrigger
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: GithubOrgLevelConnector
+        repoName: harness_pipelines_poc
+        build: <+input>
+  stages:
+    - stage:
+        name: stage
+        identifier: stage
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: trigger
+                  identifier: trigger
+                  spec:
+                    shell: Sh
+                    command: echo hello
