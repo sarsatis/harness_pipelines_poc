@@ -41,12 +41,13 @@ pipeline:
                       # commit_message = subprocess.check_output(['git', 'log', '-1', '--pretty=%B']).strip().decode('utf-8')
 
 
-                      trigger_payload = <+trigger>
-                      pr_number = <+trigger.prNumber>  # Replace with actual environment variable if needed
-                      commit_message = <+trigger.commitMessage>  # Replace with actual env var if needed
+                      trigger_payload = os.getenv('triggers_payload')
+                      pr_number = os.getenv('pr_number')  # Replace with actual environment variable if needed
+                      # commit_message = <+trigger.commitMessage>  # Replace with actual env var if needed
 
-                      print(f"Commit message: {commit_message}")
+                      # print(f"Commit message: {commit_message}")
                       print(f"pr_number: {pr_number}")
+                      print(f"trigger_payload: {trigger_payload}")
 
 
                       # # Define the regex pattern for the commit message
@@ -59,3 +60,6 @@ pipeline:
                       # else:
                       #     print("Invalid commit message. Ensure the message follows the pattern: <type>: <JIRA ID> <message>")
                       #     sys.exit(1)
+                    envVariables:
+                      pr_number: <+triggers.prNumber>
+                      triggers_payload: <+triggers>
