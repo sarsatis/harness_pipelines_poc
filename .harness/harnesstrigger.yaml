@@ -40,6 +40,8 @@ pipeline:
                       # Get the latest commit message
                       commit_message = subprocess.check_output(['git', 'log', '-1', '--pretty=%B']).strip().decode('utf-8')
 
+                      print(f"Commit message: {commit_message}")
+
                       # Define the regex pattern for the commit message
                       pattern = r'^(feat|fix|docs|release): [A-Z]+-[0-9]+ .+'
 
