@@ -41,6 +41,9 @@ pipeline:
                       commit_message = subprocess.check_output(['git', 'log', '-1', '--pretty=%B']).strip().decode('utf-8')
 
                       print(f"Commit message: {commit_message}")
+                      # Print the PR number and commit message using Harness expression syntax
+                      pr_number = os.getenv('TRIGGERS_PRNUMBER', '<+trigger.prNumber>')  # Replace with actual environment variable if needed
+                      commit_message = os.getenv('TRIGGERS_COMMITMESSAGE', '<+trigger.commitMessage>')  # Replace with actual env var if needed
 
                       # Define the regex pattern for the commit message
                       pattern = r'^(feat|fix|docs|release): [A-Z]+-[0-9]+ .+'
