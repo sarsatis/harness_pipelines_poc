@@ -36,11 +36,22 @@ pipeline:
                       import os
 
                       commit_message = os.getenv('commit_message')
-                      pr_number = os.getenv('pr_number')  # Replace with actual environment variable if needed
+                      pr_number = os.getenv('pr_number')  
 
 
                       print(f"Commit message: {commit_message}")
                       print(f"pr_number: {pr_number}")
+
+                      # Define the regex pattern for the commit message
+                      pattern = r'^(feat|fix|docs|release): [A-Z]+-[0-9]+ .+'
+
+                      # Check if the commit message matches the pattern
+                      if re.match(pattern, commit_message):
+                          print("Commit message is valid")
+                          sys.exit(0)
+                      else:
+                          print("Invalid commit message. Ensure the message follows the pattern: <type>: <JIRA ID> <message>")
+                          sys.exit(1)
                     envVariables:
                       pr_number: <+trigger.prNumber>
                       commit_message: <+trigger.prTitle>
