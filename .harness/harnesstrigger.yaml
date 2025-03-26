@@ -35,6 +35,7 @@ pipeline:
                     command: |-
                       import os
                       import re
+                      import sys
 
                       commit_message = os.getenv('commit_message')
                       pr_number = os.getenv('pr_number')  
