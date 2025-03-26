@@ -33,9 +33,7 @@ pipeline:
                   spec:
                     shell: Python
                     command: |-
-                      import subprocess
-                      import re
-                      import sys
+                      import os
 
                       # Get the latest commit message
                       # commit_message = subprocess.check_output(['git', 'log', '-1', '--pretty=%B']).strip().decode('utf-8')
